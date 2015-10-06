@@ -1,20 +1,19 @@
 import LaunchpadDriver from './LaunchpadDriver'
+import LaunchpadBuffer from './LaunchpadBuffer'
 
 function main() {
 
   const driver = new LaunchpadDriver(0)
+  const buffer = new LaunchpadBuffer(driver)
 
-  driver.reset()
-  // for (let y = 0; y < 8; ++y) {
-  //   for (let x = 0; x < 9; ++x) {
-  //     driver.setCell({x, y}, {red: x/2, green: y/2})
-  //   }
-  //   driver.setControl(y, {red: y/2, green: 0})
-  // }
+  const particules = []
+
   driver.on('cellPress', position => {
-    driver.setCell(position, {red: 3, green: 0})
+    buffer.set(position, {red: 3, green: 0})
+    buffer.present()
   }).on('cellRelease', position => {
-    driver.setCell(position, {red: 0, green: 0})
+    buffer.set(position, {red: 0, green: 0})
+    buffer.present()
   })
 
 }
